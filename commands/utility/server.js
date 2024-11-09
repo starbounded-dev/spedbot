@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
+    category: 'utility',
     cooldown: 3,
     data: new SlashCommandBuilder()
         .setName('server')

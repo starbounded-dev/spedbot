@@ -2,6 +2,7 @@ const { SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
     category: 'utility',
+    cooldown: 5,
     data: new SlashCommandBuilder()
         .setName('reload')
         .setDescription('Reloads a command.')

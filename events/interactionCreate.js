@@ -34,16 +34,15 @@ module.exports = {
             return;
         }
 
-        delete require.cache[require.resolve(`./${command.data.name}.js`)];
-
         try {
-            const newCommand = require(`./${command.data.name}.js`);
-            interaction.client.commands.set(newCommand.data.name, newCommand);
-            await interaction.reply(`Command \`${newCommand.data.name}\` was reloaded!`);
+            await command.execute(interaction);
         } catch (error) {
             console.error(error);
-            await interaction.reply(`There was an error while reloading a command \`${command.data.name}\`:\n\`${error.message}\``);
+            if (interaction.replied || interaction.deferred) {
+                await interaction.followUp({ content: 'There was an error while executing this command!', ephemeral: true });
+            } else {
+                await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+            }
         }
-
     },
 };
